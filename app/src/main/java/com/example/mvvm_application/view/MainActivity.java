@@ -1,21 +1,30 @@
 package com.example.mvvm_application.view;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.mvvm_application.R;
 import com.example.mvvm_application.adapter.NoteAdapter;
 import com.example.mvvm_application.databinding.ActivityMainBinding;
+import com.example.mvvm_application.model.MConst;
 import com.example.mvvm_application.model.Note;
 import com.example.mvvm_application.vm.NoteViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityMainBinding binding;
     private NoteViewModel noteVM;
     private NoteAdapter adapter;
@@ -28,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initVM();
+
+        binding.fabAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+                startActivityForResult(intent, MConst.ADD_NOTE_REQUEST);
+            }
+        });
     }
 
     private void initView() {
@@ -51,7 +68,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View view) {
 
+        switch (view.getId()){
+            case R.id.fab_add_note:
 
+            default:
+                Log.e("bibi", "not found id key");
+                break;
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case MConst.ADD_NOTE_REQUEST:
+                if(resultCode == Activity.RESULT_OK){
+                    if(data != null){
+                        String title = data.getStringExtra(MConst.KEY_NOTE_TITLE);
+                        String description = data.getStringExtra(MConst.KEY_NOTE_DESCRIPTION);
+                        int priority  = data.getIntExtra(MConst.KEY_NOTE_PRIORITY, -1);
+
+                        // insert note
+                        noteVM.insert(new Note(title, description, priority));
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
