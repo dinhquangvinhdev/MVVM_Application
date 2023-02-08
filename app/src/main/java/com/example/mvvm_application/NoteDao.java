@@ -17,14 +17,14 @@ public interface NoteDao {
     void insertNote(Note note);
 
     @Update
-    void updateNote(int id);
+    void updateNote(Note note);
 
     @Delete
     void deleteNote(int id);
 
     @Query("DELETE FROM note_table")
     void deleteAllNotes();
-    
+
     @Query("SELECT * FROM note_table ORDER BY priority DESC")
     LiveData<List<Note>> getALlNotes();
 }
