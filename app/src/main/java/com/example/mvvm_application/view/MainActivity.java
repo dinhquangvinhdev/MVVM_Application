@@ -3,10 +3,12 @@ package com.example.mvvm_application.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.mvvm_application.adapter.NoteAdapter;
 import com.example.mvvm_application.databinding.ActivityMainBinding;
 import com.example.mvvm_application.model.Note;
 import com.example.mvvm_application.vm.NoteViewModel;
@@ -16,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NoteViewModel noteVM;
+    private NoteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        //recycle view
+        binding.rvData.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
+        binding.rvData.setHasFixedSize(true);
+        adapter = new NoteAdapter();
+        binding.rvData.setAdapter(adapter);
     }
 
     private void initVM() {
@@ -38,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         noteVM.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
-                Toast.makeText(MainActivity.this, notes.toString(), Toast.LENGTH_SHORT).show();
+                //update new notes
+                adapter.setNotes(notes);
             }
         });
     }
