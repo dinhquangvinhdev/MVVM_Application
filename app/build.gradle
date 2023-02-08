@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.example.mvvm_application"
         minSdk 21
-        targetSdk 33
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -33,8 +33,8 @@ android {
 }
 
 dependencies {
-    def room_version = "2.5.0"
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    def room_version = "2.4.0"
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
@@ -42,7 +42,11 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+    //lifecycle
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
+
+    //cardView
+    implementation "androidx.cardview:cardview:1.0.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
