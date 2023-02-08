@@ -29,8 +29,8 @@ public class NoteRepository {
         // noteDao.updateNote(note);
     }
 
-    public void deleteNote(int id){
-        new DeleteNoteAsyncTask(noteDao).execute(id);
+    public void deleteNote(Note note){
+        new DeleteNoteAsyncTask(noteDao).execute(note);
         // noteDao.deleteNote(id);
     }
 
@@ -71,16 +71,17 @@ public class NoteRepository {
         }
     }
 
-    private static class DeleteNoteAsyncTask extends AsyncTask<Integer, Void , Void> {
+    private static class DeleteNoteAsyncTask extends AsyncTask<Note, Void , Void> {
         private NoteDao noteDao;
 
         private DeleteNoteAsyncTask(NoteDao noteDao){
             this.noteDao = noteDao;
         }
 
+
         @Override
-        protected Void doInBackground(Integer... integers) {
-            noteDao.deleteNote(integers[0]);
+        protected Void doInBackground(Note... notes) {
+            noteDao.deleteNote(notes[0]);
             return null;
         }
     }

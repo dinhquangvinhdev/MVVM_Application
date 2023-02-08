@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.mvvm_application.model.Note;
 import com.example.mvvm_application.repository.NoteRepository;
@@ -17,6 +16,7 @@ public class NoteViewModel extends AndroidViewModel {
 
     public NoteViewModel(@NonNull Application application) {
         super(application);
+        noteRepository = new NoteRepository(application);
     }
 
     public void insert(Note note){
@@ -27,8 +27,8 @@ public class NoteViewModel extends AndroidViewModel {
         noteRepository.updateNote(note);
     }
 
-    public void deleteNote(int id){
-        noteRepository.deleteNote(id);
+    public void deleteNote(Note note){
+        noteRepository.deleteNote(note);
     }
 
     public void deleteAllNotes(){
