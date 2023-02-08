@@ -93,7 +93,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         // insert note
                         noteVM.insert(new Note(title, description, priority));
+
+                        //toast
+                        Toast.makeText(this, "Add note success", Toast.LENGTH_SHORT).show();
                     }
+                }else{
+                    Toast.makeText(this, "Add note failed", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
