@@ -4,9 +4,8 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.loader.content.AsyncTaskLoader;
 
-import com.example.mvvm_application.NoteDao;
+import com.example.mvvm_application.model.NoteDao;
 import com.example.mvvm_application.model.Note;
 import com.example.mvvm_application.model.NoteDatabase;
 
